@@ -13,6 +13,7 @@ public:
     {}
 
     void addObserver(Observer* observer);
+    void removeObserver(Observer* observer);
     void notify();
 private:
     Observer* head_;
@@ -44,6 +45,26 @@ void Subject::addObserver(Observer* observer)
     head_ = observer;
 }
 
+void Subject::removeObserver(Observer* observer)
+{
+    if (observer == head_) {
+        head_ = head_->next_;
+        observer->next_ = NULL;
+        return;
+    }
+
+    Observer* current = head_;
+    while(current != NULL)
+    {
+        if (current->next_ == observer) {
+            current->next_ = observer->next_;
+            observer->next_ = NULL;
+            return;
+        }
+        current = current->next_;
+    }
+}
+
 void Subject::notify()
 {
     Observer* observer = head_;
@@ -58,11 +79,16 @@ int main()
 {
     Subject* sub = new Subject();
 
-    for (int i = 0; i < 10; i++)
-    {
-        Observer* ob = new Observer(i);
-        sub->addObserver(ob);
-    }
+    Observer* ob = new Observer(123);
+    sub->addObserver(ob);
+    Observer* ob2 = new Observer(456);
+    sub->addObserver(ob2);
+
+    sub->notify();
+
+    printf("remove\n");
+
+    sub->removeObserver(ob2);
 
     sub->notify();
 
