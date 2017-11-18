@@ -15,6 +15,7 @@ public:
     void addObserver(Observer* observer);
     void removeObserver(Observer* observer);
     void removeObserver2(Observer** observer);
+    void removeObserver3(Observer* observer);
     void notify();
 private:
     Observer* head_;
@@ -78,6 +79,22 @@ void Subject::removeObserver2(Observer** observer)
             return;
         }
         current = &((*current)->next_);
+    }
+}
+
+void Subject::removeObserver3(Observer* observer)
+{
+    printf("observer->value = %d\n", observer->value_);
+    Observer* current = head_;
+    while(current != NULL)
+    {
+        if (observer == current) {
+            printf("found current: value = %d\n", current->value_);
+            current = current->next_;
+            observer->next_ = NULL;
+            return;
+        }
+        current = current->next_;
     }
 }
 
