@@ -19,4 +19,6 @@ https://github.com/tanishi109/game-programming-patterns
                                +----------+
 ```
 
-要素のremoveをポインタのポインタで書くと、headノードを特別扱いしないで書けるらしいので試した。あってるかわからない。
+要素のremoveをポインタのポインタで書くと、headノードを特別扱いしないで書けるらしいので試した。  
+https://github.com/tanishi109/linked-list/blob/c7b6b542ad16e5a6ebd504cdf05823a331a75274/ConsoleApplication1.cpp#L72  
+あってるかわからない。
