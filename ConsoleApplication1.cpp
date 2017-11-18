@@ -14,6 +14,7 @@ public:
 
     void addObserver(Observer* observer);
     void removeObserver(Observer* observer);
+    void removeObserver2(Observer** observer);
     void notify();
 private:
     Observer* head_;
@@ -31,8 +32,8 @@ public:
     {}
 
 private:
-    Observer* next_;
 
+    Observer* next_;
     void onNotify()
     {
         printf("notify! #%d\n", this->value_);
@@ -65,6 +66,21 @@ void Subject::removeObserver(Observer* observer)
     }
 }
 
+void Subject::removeObserver2(Observer** observer)
+{
+    Observer** current = &head_;
+    while(*current != NULL)
+    {
+        if (*observer == *current) {
+            printf("*** remove observer; value = %d\n", (*current)->value_);
+            *current = (*current)->next_;
+            (*observer)->next_ = NULL;
+            return;
+        }
+        current = &((*current)->next_);
+    }
+}
+
 void Subject::notify()
 {
     Observer* observer = head_;
@@ -79,17 +95,19 @@ int main()
 {
     Subject* sub = new Subject();
 
-    Observer* ob = new Observer(123);
-    sub->addObserver(ob);
+    printf("== register == \n");
+
+    Observer* ob1 = new Observer(123);
+    sub->addObserver(ob1);
     Observer* ob2 = new Observer(456);
     sub->addObserver(ob2);
-
+    Observer* ob3 = new Observer(789);
+    sub->addObserver(ob3);
     sub->notify();
 
-    printf("remove\n");
+    printf("== remove == \n");
 
-    sub->removeObserver(ob2);
-
+    sub->removeObserver2(&ob3);
     sub->notify();
 
     system("pause");
