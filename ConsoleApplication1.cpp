@@ -47,6 +47,7 @@ void Subject::addObserver(Observer* observer)
     head_ = observer;
 }
 
+// 普通にやるならこう
 void Subject::removeObserver(Observer* observer)
 {
     if (observer == head_) {
@@ -67,6 +68,7 @@ void Subject::removeObserver(Observer* observer)
     }
 }
 
+// removeObserverをダブルポインタで実装した
 void Subject::removeObserver2(Observer** observer)
 {
     Observer** current = &head_;
@@ -82,6 +84,8 @@ void Subject::removeObserver2(Observer** observer)
     }
 }
 
+// removeObserverをダブルポインタなしで実装しようとするとうまくいかない
+// current と observer が同じアドレスの値を書き換えるので。
 void Subject::removeObserver3(Observer* observer)
 {
     printf("observer->value = %d\n", observer->value_);
