@@ -73,7 +73,7 @@ void Subject::removeObserver2(Observer** observer)
     {
         if (*observer == *current) {
             printf("*** remove observer; value = %d\n", (*current)->value_);
-            *current = (*current)->next_;
+            *current = (*observer)->next_;
             (*observer)->next_ = NULL;
             return;
         }
